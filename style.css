@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.screen {
+    outline: 1px solid black;
+    width: 250px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1em;
+}
+
+
+.buttons {
+    outline: 1px solid black;
+    padding: 2em;
+    height: 350px;
+    width: 250px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 3em;
+}
