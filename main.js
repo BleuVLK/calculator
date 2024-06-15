@@ -1,22 +1,23 @@
 
 // defines all operation related functions for the calculator to perform
+
 class Calculator {
 
-    buttons = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "+", "-", "*", "/"],
+    static buttons = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "+", "-", "*", "/"];
 
-    static add(a, b) {
+    add(a, b) {
         return a + b;
     };
 
-    static subtract(a, b) {
+    subtract(a, b) {
         return a - b;
     };
 
-    static multiply(a, b) {
+    multiply(a, b) {
         return a * b;
     };
 
-    static divide(a, b) {
+    divide(a, b) {
         return a / b;
     };
 
@@ -33,7 +34,7 @@ class Calculator {
                 output = this.multiply(int1, int2);
                 break;
             case (operator === "/"):
-                output =this.divide(int1, int2);
+                output = this.divide(int1, int2);
                 break;
         };
         return output;
@@ -41,3 +42,35 @@ class Calculator {
 
 };
 
+
+// creates main UI sections
+
+class UI {
+
+    constructor() {
+        this.#setui;
+    };
+
+    #createMainDiv() {
+        const body = document.querySelector('body');
+        const mainDiv = document.createElement('div');
+        mainDiv.classList.toggle('main-div');
+        body.appendChild(mainDiv);
+        return mainDiv;
+    };
+
+    #createScreenArea(mainDiv) {
+        const screenArea = document.createElement('div');
+        screenArea.classList.toggle('screen-area');
+        mainDiv.appendChild(screenArea);
+        return screenArea
+    };
+
+    #setui() { 
+        const mainDIV = this.#createMainDiv();
+        const screenArea = this.#createScreenArea(mainDIV);
+    }
+
+}
+
+const ui = new UI();
