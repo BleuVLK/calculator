@@ -5,19 +5,21 @@ class Calculator {
 
     static buttons = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "+", "-", "*", "/"];
 
-    add(a, b) {
+    static storedValue = '';
+
+    static add(a, b) {
         return a + b;
     };
 
-    subtract(a, b) {
+    static subtract(a, b) {
         return a - b;
     };
 
-    multiply(a, b) {
+    static multiply(a, b) {
         return a * b;
     };
 
-    divide(a, b) {
+    static divide(a, b) {
         return a / b;
     };
 
@@ -48,29 +50,70 @@ class Calculator {
 class UI {
 
     constructor() {
-        this.#setui;
+        this.#setui();
     };
 
     #createMainDiv() {
         const body = document.querySelector('body');
         const mainDiv = document.createElement('div');
-        mainDiv.classList.toggle('main-div');
+        mainDiv.id = 'main-div';
         body.appendChild(mainDiv);
         return mainDiv;
     };
 
     #createScreenArea(mainDiv) {
         const screenArea = document.createElement('div');
-        screenArea.classList.toggle('screen-area');
+        screenArea.id = 'screen-area';
         mainDiv.appendChild(screenArea);
-        return screenArea
+        const currentValue = document.createElement('p');
+        currentValue.id = 'current-value';
+        currentValue.textContent = 0;
+        const outputValue = document.createElement('p');
+        outputValue.id = 'output-value';
+        outputValue.textContent = 0;
+        screenArea.appendChild(currentValue);
+        screenArea.appendChild(outputValue);
+    };
+
+    #createButtonArea(mainDiv) {
+        const buttonArea = document.createElement('div');
+        buttonArea.id = 'button-area';
+        mainDiv.appendChild(buttonArea);
+        return buttonArea;
+    };
+
+    #createButtons(array) {
+        return array.map((button) => {
+            const myButton = document.createElement('button');
+            myButton.value = button;
+            myButton.textContent = button;
+            return myButton;
+        });
+    };
+
+    #updateCurrentValue(value) {
+        const currentValue = document.getElementById('current-value');
+        currentValue.textContent = value;
+    };
+
+    #setButtonEventListener(button) {
+        button.addEventListener('click', () => {
+            Calculator.storedValue += button.value;
+            this.#updateCurrentValue(Calculator.storedValue);
+        });
     };
 
     #setui() { 
         const mainDIV = this.#createMainDiv();
-        const screenArea = this.#createScreenArea(mainDIV);
-    }
+        this.#createScreenArea(mainDIV);
+        const buttonArea = this.#createButtonArea(mainDIV);
+        let buttons = this.#createButtons(Calculator.buttons);
+        buttons = buttons.forEach((button) => {
+            this.#setButtonEventListener(button);
+            buttonArea.appendChild(button);
+        });
+    };
 
-}
+};
 
 const ui = new UI();
