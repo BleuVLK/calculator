@@ -5,7 +5,7 @@ class Calculator {
 
     static buttons = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "+", "-", "*", "/"];
 
-    static storedValue = '';
+    static currentValue = [];
 
     static add(a, b) {
         return a + b;
@@ -67,7 +67,7 @@ class UI {
         mainDiv.appendChild(screenArea);
         const currentValue = document.createElement('p');
         currentValue.id = 'current-value';
-        currentValue.textContent = 0;
+        currentValue.textContent = '';
         const outputValue = document.createElement('p');
         outputValue.id = 'output-value';
         outputValue.textContent = 0;
@@ -91,15 +91,26 @@ class UI {
         });
     };
 
-    #updateCurrentValue(value) {
+    #updateCurrentValue(array) {
+        
+        if (array[0] === 0) {
+            array.splice(0, 1);
+        };
+
+        const value = array.join('');
         const currentValue = document.getElementById('current-value');
         currentValue.textContent = value;
     };
 
     #setButtonEventListener(button) {
         button.addEventListener('click', () => {
-            Calculator.storedValue += button.value;
-            this.#updateCurrentValue(Calculator.storedValue);
+            const value = parseInt(button.value);
+
+            if (!isNaN(value)) {
+                Calculator.currentValue.push(value);
+                this.#updateCurrentValue(Calculator.currentValue);
+            };
+            
         });
     };
 
