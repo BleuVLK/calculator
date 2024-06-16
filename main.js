@@ -92,11 +92,7 @@ class UI {
     };
 
     #updateCurrentValue(array) {
-        
-        if (array[0] === 0) {
-            array.splice(0, 1);
-        };
-
+        array[0] === 0 ? array.splice(0, 1) : null;
         const value = array.join('');
         const currentValue = document.getElementById('current-value');
         currentValue.textContent = value;
@@ -110,7 +106,7 @@ class UI {
                 Calculator.currentValue.push(value);
                 this.#updateCurrentValue(Calculator.currentValue);
             };
-            
+
         });
     };
 
